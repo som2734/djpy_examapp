@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Wishlist: User Profile</title>
+  </head>
+  <style>
+  *{
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  input[type='submit']{
+    margin-top: 10px;
+    border: 1px solid teal;
+    border-radius: 4px;
+    background-color: teal;
+    padding: 4px;
+    color: white;
+  }
+  form {
+    width: 90%;
+    margin: 0 auto;
+  }
+  h2 {
+    width: 90%;
+    margin: 10px auto;
+    margin-top: 24px;
+  }
+
+  table {
+    text-align: left;
+    padding: 4px;
+  }
+  </style>
+  <body>
+    <header>
+       {% for user in users %}
+       <h1>Hello, {{user.first_name}}!</h1>
+       {% endfor %}
+      <form class="" action="/logout" method="post">
+          <a href="/"><p>Logout</p></a>
+      </form>
+    </header>
+    <hr>
+    <h3>Your Wishlist:</h3>
+    <table cols=4>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Added By</th>
+          <th>Date Added</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in mine %}
+        <tr>
+            <a href='/item'><td>{{item.item.product}}</td></a>
+            <td>{{item.user.first_name}}</td>
+            <td>{{item.created_at}}</td>
+            <td><a href='/remove/{{item.id}}'>Remove</a>/<a href='/delete/{{item.id}}'>Delete</a></td>
+        </tr>
+        {% endfor %}
+        <br>
+
+    </tbody>
+    </table>
+    <table cols=4>
+      <h3>Other Users' Wish List:</h3>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Added By</th>
+          <th>Date Added</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+        <tbody>
+          {% for item in others %}
+          <tr>
+              <a href='/show_item/{{item.id}}'><td>{{item.product}}</td></a>
+              <td>{{item.user.first_name}}</td>
+              <td>{{item.created_at}}</td>
+              <td><a href='/add_wl/{{item.id}}'>Add to my Wishlist</a>
+          </tr>
+          {% endfor %}
+          <br>
+
+
+
+
+
+
+      </tbody>
+    </table>
+    <br>
+    <a href="/create_item">Add Item</a>
+
+  </body>
+</html>
